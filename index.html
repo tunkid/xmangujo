@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Pendaftaran Kolaborasi UKLMTHS x Mang Ujo</title>
+  <title>Pendaftaran Kolaborasi UKLMTHS x Warmindo Mang Ujo</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,7 +12,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     
-    /* DUKUNGAN LAYAR HP RESPONSIF & SCROLL */
+    /* SUPPORT RESPONSIVE & SCROLL MOBILE */
     html, body {
       width: 100%;
       min-height: 100vh;
@@ -76,7 +76,7 @@
       padding: 16px 14px;
     }
 
-    /* Status Kuota */
+    /* Badge Status Kuota */
     .quota-badge {
       background-color: #ebf8ff;
       color: #2b6cb0;
@@ -142,7 +142,7 @@
       opacity: 0.7;
     }
 
-    /* Area Sukses */
+    /* Area Sukses (Page Setelah Daftar) */
     #successArea {
       display: none;
       text-align: center;
@@ -242,7 +242,7 @@
       display: none;
     }
 
-    /* Modal untuk instruksi bookmark */
+    /* Modal untuk instruksi Bookmark & Konfirmasi Refresh */
     .modal {
       display: none;
       position: fixed;
@@ -270,6 +270,28 @@
       margin-bottom: 15px;
       line-height: 1.4;
     }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .modal-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .modal-btn-confirm {
+      background: #e53e3e;
+      color: #fff;
+    }
+    .modal-btn-cancel {
+      background: #edf2f7;
+      color: #2d3748;
+    }
     .modal-close {
       background: #2a5298;
       color: #fff;
@@ -284,9 +306,10 @@
 <body>
 
 <div class="form-container">
+  <!-- Header Banner -->
   <div class="header-banner">
     <div class="safe-zone">
-      <h1>KOLABORASI<br>UKLMTHS x Mang Ujo</h1>
+      <h1 id="headerTitle">KOLABORASI<br>UKLMTHS x Warmindo Mang Ujo</h1>
       <p>Formulir Pendaftaran Peserta</p>
     </div>
   </div>
@@ -297,8 +320,9 @@
       ⏳ Pengecekan Kuota...
     </div>
 
+    <!-- Notifikasi Kuota Penuh -->
     <div id="fullNotice" class="full-notice">
-      Mohon maaf, kuota pendaftaran (75 peserta) telah terpenuhi.
+      Mohon maaf, kuota pendaftaran telah terpenuhi.
     </div>
 
     <!-- Form Pendaftaran -->
@@ -321,25 +345,26 @@
       <button type="submit" id="btnSubmit" class="btn-submit" disabled>Daftar Sekarang</button>
     </form>
 
-    <!-- Area yang muncul setelah klik daftar -->
+    <!-- Area yang muncul setelah pendaftaran berhasil (Page Berikutnya) -->
     <div id="successArea">
       <div class="success-badge">
         ✓ Pendaftaran Berhasil! Sampai jumpa di lokasi.
       </div>
 
-      <!-- Tampilan Map Lokasi Mang Ujo dengan Overlay Logo -->
+      <!-- Tampilan Map Lokasi dengan Overlay Logo -->
       <div class="map-container">
         <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d31611.578736315412!2d112.59764598553875!3d-7.95263738517119!3m2!1i1024!2i768!4f13.1!2m1!1spaddy%20sh%20location!5e0!3m2!1sen!2sid!4v1792771300591!5m2!1sen!2sid" 
+          id="mapIframe"
+          src="" 
           allowfullscreen="" 
           loading="lazy" 
           referrerpolicy="strict-origin-when-cross-origin">
         </iframe>
         <div class="map-overlay-logos">
-          <!-- Logo 1 (UKLMTHS) ------------------------------------------------------------------------------------------------------------------------------------------------->
-          <img src="https://lh3.googleusercontent.com/u/0/d/1oHXJG10EyQ9IDB9xGujb0-oVqriVlAr1" alt="Logo UKLMTHS">
-          <!-- Logo 2 (Mang Ujo) -->
-          <img src="https://lh3.googleusercontent.com/u/0/d/1C4g0o_O0R5lNKAwV_tH-bP_X9IgT7EH-" alt="Logo Mang Ujo">
+          <!-- Logo 1 (UKLMTHS) -->
+          <img id="logoUKL" src="https://lh3.googleusercontent.com/u/0/d/1oHXJG10EyQ9IDB9xGujb0-oVqriVlAr1" alt="Logo UKLMTHS">
+          <!-- Logo 2 (Partner) -->
+          <img id="logoPartner" src="https://lh3.googleusercontent.com/u/0/d/1C4g0o_O0R5lNKAwV_tH-bP_X9IgT7EH-" alt="Logo Partner">
         </div>
       </div>
 
@@ -353,7 +378,7 @@
         💬 Konfirmasi Pendaftaran ke WhatsApp
       </a>
 
-      <!-- Tombol Gabung Grup WA UKLMTHS -->
+      <!-- Tombol Gabung Grup WA -->
       <a class="action-btn btn-group-wa" target="_blank" id="waGroupLink">
         👥 Gabung Grup WhatsApp UKLMTHS
       </a>
@@ -363,30 +388,64 @@
         📅 Tambah ke Google Calendar
       </a>
 
-      <!-- Tombol Follow IG Mang Ujo -->
-      <a class="action-btn btn-instagram" href="https://www.instagram.com/paddyy.sh?utm_source=ig_web_button_share_sheet&rpxt=ZDNlZDc0MzIxNw==" target="_blank">
-        📸 Follow Instagram @paddyy.sh
+      <!-- Tombol Follow IG Partner -->
+      <a class="action-btn btn-instagram" target="_blank" id="igLink">
+        📸 Follow Instagram Warmindo Mang Ujo
       </a>
     </div>
   </div>
 </div>
 
-<!-- Modal Informasi Bookmark -->
+<!-- Modal Dialog Informasi Bookmark -->
 <div id="bookmarkModal" class="modal">
   <div class="modal-content">
-    <h3>📌 Cara Simpan / Bookmark Lokasi</h3>
-    <p id="bookmarkModalText">Tekan <b>Ctrl + D</b> (Windows) atau <b>Cmd + D</b> (Mac) pada keyboard Anda untuk menyimpan halaman ini.</p>
-    <button class="modal-close" onclick="closeBookmarkModal()">Tutup</button>
+    <h3>📌 Simpan / Bookmark Lokasi</h3>
+    <p id="bookmarkModalText"></p>
+    <button class="modal-close" onclick="closeModal('bookmarkModal')">Tutup</button>
+  </div>
+</div>
+
+<!-- Modal Dialog Konfirmasi Refresh/Kembali -->
+<div id="confirmRefreshModal" class="modal">
+  <div class="modal-content">
+    <h3>⚠️ Konfirmasi Kembali</h3>
+    <p>Anda yakin akan kembali ke page pendaftaran?</p>
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-confirm" onclick="proceedToRegistration()">Ya</button>
+      <button class="modal-btn modal-btn-cancel" onclick="closeModal('confirmRefreshModal')">Tidak</button>
+    </div>
   </div>
 </div>
 
 <script>
-  // CONFIGURASI USER --------------------------------------------------------------------------------------------------------------------------------edit ini
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzegRb9grhoqxJAniSbqxNSYlGppkMoB6FxVcbRfWgLjzTxTKYcWbdfQjBWnyrStPR_-A/exec";
-  const MAP_URL = "https://maps.app.goo.gl/dDty4ye9hurT74ZE7";
-  const ADMIN_WA_NUMBER = "6282141184225";
-  const WA_GROUP_LINK = "https://chat.whatsapp.com/FdHqx2XYufR1ohOzS7350I";
+  /* ==========================================================================
+     VARIABLE CONFIGURATION - EDIT BAGIAN INI UNTUK MENYESUAIKAN KEGIATAN LAIN
+     ========================================================================== */
+  const CONFIG = {
+    EVENT_NAME: "UKLM X Warmindo Mang Ujo",
+    MAX_QUOTA: 50, // Kuota Maksimal Peserta
+    
+    // Waktu & Tanggal Kegiatan (1 November 2026, Jam 06:00 WIB)
+    // Format UTC untuk Google Calendar (1 Nov 2026 06:00 WIB = 31 Okt 2026 23:00 UTC)
+    EVENT_START_UTC: "20261031T230000Z",
+    EVENT_END_UTC: "20261101T020000Z",
+    
+    // URL Link & Peta
+    MAPS_SHARE_URL: "https://maps.app.goo.gl/KTjVWwvxgxm5H1gHA",
+    MAPS_EMBED_SRC: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.2721869812425!2d112.6053351!3d-7.9707255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883f3f502c3b7%3A0x64e2e2ef975b9fa7!2sWarmindo%20Mang%20Ujo!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid",
+    
+    // Kontak & Sosial Media
+    ADMIN_WA_NUMBER: "6285179869927",
+    WA_GROUP_LINK: "https://chat.whatsapp.com/FdHqx2XYufR1ohOzS7350I",
+    INSTAGRAM_URL: "https://www.instagram.com/warmindo_mangujo?utm_source=ig_web_button_share_sheet&vrfl=ZDNlZDc0MzIxNw==",
+    
+    // Google Apps Script Web App Endpoint
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxn8oMFl5ftdUHej1rT26yXM0XVzLcYKWbEO3cbHz5U3X4E7dto8_lrlwEdHQKSfSRdLA/exec"
+  };
 
+  /* ==========================================================================
+     INITALIZATION & DOM SETUP
+     ========================================================================== */
   const form = document.getElementById('regForm');
   const btnSubmit = document.getElementById('btnSubmit');
   const inputs = form.querySelectorAll('input, textarea');
@@ -394,19 +453,15 @@
   const fullNotice = document.getElementById('fullNotice');
   const quotaStatus = document.getElementById('quotaStatus');
 
-  let isSubmitted = false;
+  // Load elemen dari konfigurasi
+  document.getElementById('mapIframe').src = CONFIG.MAPS_EMBED_SRC;
+  document.getElementById('waGroupLink').href = CONFIG.WA_GROUP_LINK;
+  document.getElementById('igLink').href = CONFIG.INSTAGRAM_URL;
+  document.getElementById('fullNotice').innerText = `Mohon maaf, kuota pendaftaran (${CONFIG.MAX_QUOTA} peserta) telah terpenuhi.`;
 
-  // 1. NOTIFIKASI SAAT REFRESH / KEMBALI DARI HALAMAN
-  window.addEventListener('beforeunload', function (e) {
-    // Jika belum submit dan user sudah mengetik sesuatu atau saat form aktif
-    if (!isSubmitted) {
-      const confirmationMessage = "Anda yakin akan kembali ke page pendaftaran?";
-      (e || window.event).returnValue = confirmationMessage; // Standar browser
-      return confirmationMessage; // Webkit
-    }
-  });
-
-  // Validasi real-time input
+  /* ==========================================================================
+     VALIDASI REAL-TIME INPUT
+     ========================================================================== */
   function checkFormValidity() {
     let allFilled = true;
     inputs.forEach(input => {
@@ -423,48 +478,47 @@
     input.addEventListener('change', checkFormValidity);
   });
 
-  // Pengecekan Kuota Otomatis
+  /* ==========================================================================
+     PENGECEKAN KUOTA AUTOMATIS
+     ========================================================================== */
   async function checkQuota() {
     try {
-      const res = await fetch(SCRIPT_URL);
+      const res = await fetch(CONFIG.SCRIPT_URL);
       const data = await res.json();
       
-      if (data.isFull) {
+      if (data.isFull || (data.count && data.count >= CONFIG.MAX_QUOTA)) {
         form.style.display = 'none';
         quotaStatus.style.display = 'none';
         fullNotice.style.display = 'block';
       } else {
-        const remaining = data.remaining !== undefined ? data.remaining : (75 - (data.count || 0));
-        quotaStatus.innerHTML = `Sisa Kuota yang tersedia: <b>${remaining}</b> / 75 Peserta`;
+        const remaining = data.remaining !== undefined ? data.remaining : (CONFIG.MAX_QUOTA - (data.count || 0));
+        quotaStatus.innerHTML = `Sisa Kuota yang tersedia: <b>${remaining}</b> / ${CONFIG.MAX_QUOTA} Peserta`;
       }
     } catch (e) {
       console.error("Gagal mengecek kuota:", e);
-      quotaStatus.innerHTML = "Sisa Kuota yang tersedia: <b>75</b> / 75 Peserta";
+      quotaStatus.innerHTML = `Sisa Kuota yang tersedia: <b>${CONFIG.MAX_QUOTA}</b> / ${CONFIG.MAX_QUOTA} Peserta`;
     }
   }
   checkQuota();
 
-  // Link Google Calendar (15 Nov 2026, 06:00 WIB)
+  /* ==========================================================================
+     LINK GOOGLE CALENDAR
+     ========================================================================== */
   function setupCalendarLink() {
-    const title = encodeURIComponent("Acara Kolaborasi UKLMTHS x Mang Ujo");
-    const details = encodeURIComponent("Pengingat Acara Kolaborasi UKLMTHS x Mang Ujo.\n\nLokasi Maps: " + MAP_URL);
-    const location = encodeURIComponent(MAP_URL);
-    
-    const startTime = "20261114T230000Z";
-    const endTime = "20261115T020000Z"; 
+    const title = encodeURIComponent("Acara Kolaborasi " + CONFIG.EVENT_NAME);
+    const details = encodeURIComponent("Pengingat Acara Kolaborasi " + CONFIG.EVENT_NAME + ".\n\nLokasi Maps: " + CONFIG.MAPS_SHARE_URL);
+    const location = encodeURIComponent(CONFIG.MAPS_SHARE_URL);
 
-    const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startTime}/${endTime}&details=${details}&location=${location}`;
+    const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${CONFIG.EVENT_START_UTC}/${CONFIG.EVENT_END_UTC}&details=${details}&location=${location}`;
     document.getElementById('gCalLink').href = gCalUrl;
   }
   setupCalendarLink();
 
-  // Set Link Grup WA
-  document.getElementById('waGroupLink').href = WA_GROUP_LINK;
-
-  // Form Submit
+  /* ==========================================================================
+     SUBMIT FORM & NAVIGATION STATE
+     ========================================================================== */
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    isSubmitted = true; // Matikan notifikasi sebelum reload/refresh setelah pendaftaran berhasil
     btnSubmit.disabled = true;
     btnSubmit.textContent = 'Memproses...';
 
@@ -474,55 +528,102 @@
 
     const payload = { instagram: ig, whatsapp: wa, alasan: alasan };
 
-    // Format pesan WA Admin
-    const waMsg = encodeURIComponent(`Halo Admin, saya telah mendaftar acara Kolaborasi UKLMTHS x Mang Ujo.\n\nNama IG: ${ig}\nNo WA: ${wa}\nAlasan: ${alasan}`);
-    document.getElementById('waConfirmLink').href = `https://wa.me/${ADMIN_WA_NUMBER}?text=${waMsg}`;
+    // Format WA Message
+    const waMsg = encodeURIComponent(`Halo Admin, saya telah mendaftar acara Kolaborasi ${CONFIG.EVENT_NAME}.\n\nNama IG: ${ig}\nNo WA: ${wa}\nAlasan: ${alasan}`);
+    document.getElementById('waConfirmLink').href = `https://wa.me/${CONFIG.ADMIN_WA_NUMBER}?text=${waMsg}`;
 
     // Kirim data ke Google Sheets
-    fetch(SCRIPT_URL, {
+    fetch(CONFIG.SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     }).then(() => {
-      form.style.display = 'none';
-      quotaStatus.style.display = 'none';
-      successArea.style.display = 'block';
+      showSuccessPage();
     }).catch(err => {
       console.error(err);
-      form.style.display = 'none';
-      quotaStatus.style.display = 'none';
-      successArea.style.display = 'block';
+      showSuccessPage();
     });
   });
 
-  // Fungsi Bookmark Map
+  function showSuccessPage() {
+    form.style.display = 'none';
+    quotaStatus.style.display = 'none';
+    successArea.style.display = 'block';
+    
+    // Simpan status bahwa peserta sudah berhasil mendaftar ke SessionStorage
+    sessionStorage.setItem('registeredSuccess', 'true');
+  }
+
+  /* ==========================================================================
+     KONFIRMASI REFRESH KETIKA BERADA DI PAGE BERIKUTNYA
+     ========================================================================== */
+  // Cek saat halaman dimuat ulang (refresh)
+  window.addEventListener('load', function() {
+    if (sessionStorage.getItem('registeredSuccess') === 'true') {
+      // Tampilkan halaman sukses dan buka dialog konfirmasi refresh
+      form.style.display = 'none';
+      quotaStatus.style.display = 'none';
+      successArea.style.display = 'block';
+      openModal('confirmRefreshModal');
+    }
+  });
+
+  function proceedToRegistration() {
+    // Hapus status register, lalu reset kembali ke form pendaftaran
+    sessionStorage.removeItem('registeredSuccess');
+    closeModal('confirmRefreshModal');
+    successArea.style.display = 'none';
+    form.reset();
+    form.style.display = 'block';
+    quotaStatus.style.display = 'block';
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'Daftar Sekarang';
+    checkQuota();
+  }
+
+  /* ==========================================================================
+     FUNGSI BOOKMARK MAP (REPAIRED)
+     ========================================================================== */
   function bookmarkLocation() {
-    const modal = document.getElementById('bookmarkModal');
     const modalText = document.getElementById('bookmarkModalText');
 
+    // Opsi 1: Jika browser mendukung Native Web Share API (HP Android / iOS)
     if (navigator.share) {
       navigator.share({
-        title: 'Lokasi Acara UKLMTHS x Mang Ujo',
-        text: 'Simpan titik lokasi acara Kolaborasi UKLMTHS x Mang Ujo',
-        url: MAP_URL
+        title: 'Lokasi Acara ' + CONFIG.EVENT_NAME,
+        text: 'Simpan titik lokasi acara ' + CONFIG.EVENT_NAME,
+        url: CONFIG.MAPS_SHARE_URL
       }).catch(() => {});
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(MAP_URL).then(() => {
-        modalText.innerHTML = "<b>Tautan Lokasi Berhasil Disalin!</b><br>Tautan telah disalin ke papan klip Anda. Tempelkan ke catatan atau bookmark browser Anda.";
-        modal.style.display = 'flex';
+    } 
+    // Opsi 2: Salin otomatis ke Clipboard & Munculkan Modal Notifikasi
+    else if (navigator.clipboard) {
+      navigator.clipboard.writeText(CONFIG.MAPS_SHARE_URL).then(() => {
+        modalText.innerHTML = "<b>Tautan Lokasi Berhasil Disalin!</b><br>Tempelkan tautan ke catatan atau bookmark browser Anda.";
+        openModal('bookmarkModal');
       }).catch(() => {
-        modalText.innerHTML = "Tekan <b>Ctrl + D</b> (Windows) atau <b>Cmd + D</b> (Mac) untuk menyimpan halaman ini ke bookmark browser Anda.";
-        modal.style.display = 'flex';
+        fallbackBookmark();
       });
     } else {
-      modalText.innerHTML = "Tekan <b>Ctrl + D</b> (Windows) atau <b>Cmd + D</b> (Mac) untuk menyimpan halaman ini.";
-      modal.style.display = 'flex';
+      fallbackBookmark();
     }
   }
 
-  function closeBookmarkModal() {
-    document.getElementById('bookmarkModal').style.display = 'none';
+  function fallbackBookmark() {
+    const modalText = document.getElementById('bookmarkModalText');
+    modalText.innerHTML = "Tekan <b>Ctrl + D</b> (Windows) atau <b>Cmd + D</b> (Mac) untuk menyimpan halaman ini ke bookmark browser Anda.";
+    openModal('bookmarkModal');
+  }
+
+  /* ==========================================================================
+     HELPER MODAL FUNCTIONS
+     ========================================================================== */
+  function openModal(id) {
+    document.getElementById(id).style.display = 'flex';
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
   }
 </script>
 
