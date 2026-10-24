@@ -1,1 +1,530 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pendaftaran Kolaborasi UKLMTHS x Mang Ujo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    
+    /* DUKUNGAN LAYAR HP RESPONSIF & SCROLL */
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+      background-color: #f4f6f9;
+      color: #333;
+      padding: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
 
+    .form-container {
+      width: 100%;
+      max-width: 480px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    
+    /* Header Rasio 4:1 (1600x400) */
+    .header-banner {
+      width: 100%;
+      aspect-ratio: 4 / 1;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 10px;
+    }
+    
+    /* Safe Zone 1000x300 */
+    .safe-zone {
+      width: 80%;
+      height: 75%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #ffffff;
+    }
+    .safe-zone h1 {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .safe-zone p {
+      font-size: 11px;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+    .content-body {
+      padding: 16px 14px;
+    }
+
+    /* Status Kuota */
+    .quota-badge {
+      background-color: #ebf8ff;
+      color: #2b6cb0;
+      border: 1px solid #bee3f8;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #444;
+    }
+    .form-group label .required {
+      color: #e53e3e;
+    }
+    
+    .form-control {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 15px;
+      font-size: 15px;
+      border: 1.5px solid #cccccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus {
+      border-color: #2a5298;
+    }
+    textarea.form-control {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      width: 100%;
+      min-height: 48px;
+      background-color: #2a5298;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, opacity 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-submit:disabled {
+      background-color: #a0aec0 !important;
+      cursor: not-allowed !important;
+      opacity: 0.7;
+    }
+
+    /* Area Sukses */
+    #successArea {
+      display: none;
+      text-align: center;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-badge {
+      background-color: #c6f6d5;
+      color: #22543d;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .map-container {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid #e2e8f0;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .map-overlay-logos {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 6px 10px;
+      border-radius: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .map-overlay-logos img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 48px;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      box-sizing: border-box;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-bookmark {
+      background-color: #edf2f7;
+      color: #2d3748;
+      border: 1px solid #cbd5e0;
+    }
+    .btn-confirm-wa {
+      background-color: #25d366;
+      color: #ffffff;
+    }
+    .btn-group-wa {
+      background-color: #128c7e;
+      color: #ffffff;
+    }
+    .btn-calendar {
+      background-color: #4285f4;
+      color: #ffffff;
+    }
+    .btn-instagram {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: #ffffff;
+    }
+
+    .full-notice {
+      background-color: #fed7d7;
+      color: #9b2c2c;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+    }
+
+    /* Modal untuk instruksi bookmark */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 360px;
+      text-align: center;
+    }
+    .modal-content h3 {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .modal-content p {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+    .modal-close {
+      background: #2a5298;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <div class="header-banner">
+    <div class="safe-zone">
+      <h1>KOLABORASI<br>UKLMTHS x Mang Ujo</h1>
+      <p>Formulir Pendaftaran Peserta</p>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <!-- Status Kuota -->
+    <div id="quotaStatus" class="quota-badge">
+      ⏳ Pengecekan Kuota...
+    </div>
+
+    <div id="fullNotice" class="full-notice">
+      Mohon maaf, kuota pendaftaran (75 peserta) telah terpenuhi.
+    </div>
+
+    <!-- Form Pendaftaran -->
+    <form id="regForm">
+      <div class="form-group">
+        <label for="instagram">Nama Instagram <span class="required">*</span></label>
+        <input type="text" id="instagram" class="form-control" placeholder="@username" required autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label for="whatsapp">No. WhatsApp <span class="required">*</span></label>
+        <input type="tel" id="whatsapp" class="form-control" placeholder="08xxxxxxxxxx" required autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label for="alasan">Alasan Ikut <span class="required">*</span></label>
+        <textarea id="alasan" class="form-control" placeholder="Tuliskan alasan Anda..." required></textarea>
+      </div>
+
+      <button type="submit" id="btnSubmit" class="btn-submit" disabled>Daftar Sekarang</button>
+    </form>
+
+    <!-- Area yang muncul setelah klik daftar -->
+    <div id="successArea">
+      <div class="success-badge">
+        ✓ Pendaftaran Berhasil! Sampai jumpa di lokasi.
+      </div>
+
+      <!-- Tampilan Map Lokasi Mang Ujo dengan Overlay Logo -->
+      <div class="map-container">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d31611.578736315412!2d112.59764598553875!3d-7.95263738517119!3m2!1i1024!2i768!4f13.1!2m1!1spaddy%20sh%20location!5e0!3m2!1sen!2sid!4v1792771300591!5m2!1sen!2sid" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+        <div class="map-overlay-logos">
+          <!-- Logo 1 (UKLMTHS) ------------------------------------------------------------------------------------------------------------------------------------------------->
+          <img src="https://lh3.googleusercontent.com/u/0/d/1oHXJG10EyQ9IDB9xGujb0-oVqriVlAr1" alt="Logo UKLMTHS">
+          <!-- Logo 2 (Mang Ujo) -->
+          <img src="https://lh3.googleusercontent.com/u/0/d/1C4g0o_O0R5lNKAwV_tH-bP_X9IgT7EH-" alt="Logo Mang Ujo">
+        </div>
+      </div>
+
+      <!-- Tombol Bookmark Map -->
+      <button class="action-btn btn-bookmark" onclick="bookmarkLocation()">
+        📌 Bookmark / Simpan Lokasi Map
+      </button>
+
+      <!-- Tombol Konfirmasi WA Admin -->
+      <a class="action-btn btn-confirm-wa" target="_blank" id="waConfirmLink">
+        💬 Konfirmasi Pendaftaran ke WhatsApp
+      </a>
+
+      <!-- Tombol Gabung Grup WA UKLMTHS -->
+      <a class="action-btn btn-group-wa" target="_blank" id="waGroupLink">
+        👥 Gabung Grup WhatsApp UKLMTHS
+      </a>
+
+      <!-- Tombol Google Calendar -->
+      <a class="action-btn btn-calendar" target="_blank" id="gCalLink">
+        📅 Tambah ke Google Calendar
+      </a>
+
+      <!-- Tombol Follow IG Mang Ujo -->
+      <a class="action-btn btn-instagram" href="https://www.instagram.com/paddyy.sh?utm_source=ig_web_button_share_sheet&rpxt=ZDNlZDc0MzIxNw==" target="_blank">
+        📸 Follow Instagram @paddyy.sh
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Informasi Bookmark -->
+<div id="bookmarkModal" class="modal">
+  <div class="modal-content">
+    <h3>📌 Cara Simpan / Bookmark Lokasi</h3>
+    <p id="bookmarkModalText">Tekan <b>Ctrl + D</b> (Windows) atau <b>Cmd + D</b> (Mac) pada keyboard Anda untuk menyimpan halaman ini.</p>
+    <button class="modal-close" onclick="closeBookmarkModal()">Tutup</button>
+  </div>
+</div>
+
+<script>
+  // CONFIGURASI USER --------------------------------------------------------------------------------------------------------------------------------edit ini
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzegRb9grhoqxJAniSbqxNSYlGppkMoB6FxVcbRfWgLjzTxTKYcWbdfQjBWnyrStPR_-A/exec";
+  const MAP_URL = "https://maps.app.goo.gl/dDty4ye9hurT74ZE7";
+  const ADMIN_WA_NUMBER = "6282141184225";
+  const WA_GROUP_LINK = "https://chat.whatsapp.com/FdHqx2XYufR1ohOzS7350I";
+
+  const form = document.getElementById('regForm');
+  const btnSubmit = document.getElementById('btnSubmit');
+  const inputs = form.querySelectorAll('input, textarea');
+  const successArea = document.getElementById('successArea');
+  const fullNotice = document.getElementById('fullNotice');
+  const quotaStatus = document.getElementById('quotaStatus');
+
+  let isSubmitted = false;
+
+  // 1. NOTIFIKASI SAAT REFRESH / KEMBALI DARI HALAMAN
+  window.addEventListener('beforeunload', function (e) {
+    // Jika belum submit dan user sudah mengetik sesuatu atau saat form aktif
+    if (!isSubmitted) {
+      const confirmationMessage = "Anda yakin akan kembali ke page pendaftaran?";
+      (e || window.event).returnValue = confirmationMessage; // Standar browser
+      return confirmationMessage; // Webkit
+    }
+  });
+
+  // Validasi real-time input
+  function checkFormValidity() {
+    let allFilled = true;
+    inputs.forEach(input => {
+      if (!input.value.trim()) {
+        allFilled = false;
+      }
+    });
+    btnSubmit.disabled = !allFilled;
+  }
+
+  inputs.forEach(input => {
+    input.addEventListener('input', checkFormValidity);
+    input.addEventListener('keyup', checkFormValidity);
+    input.addEventListener('change', checkFormValidity);
+  });
+
+  // Pengecekan Kuota Otomatis
+  async function checkQuota() {
+    try {
+      const res = await fetch(SCRIPT_URL);
+      const data = await res.json();
+      
+      if (data.isFull) {
+        form.style.display = 'none';
+        quotaStatus.style.display = 'none';
+        fullNotice.style.display = 'block';
+      } else {
+        const remaining = data.remaining !== undefined ? data.remaining : (75 - (data.count || 0));
+        quotaStatus.innerHTML = `Sisa Kuota yang tersedia: <b>${remaining}</b> / 75 Peserta`;
+      }
+    } catch (e) {
+      console.error("Gagal mengecek kuota:", e);
+      quotaStatus.innerHTML = "Sisa Kuota yang tersedia: <b>75</b> / 75 Peserta";
+    }
+  }
+  checkQuota();
+
+  // Link Google Calendar (15 Nov 2026, 06:00 WIB)
+  function setupCalendarLink() {
+    const title = encodeURIComponent("Acara Kolaborasi UKLMTHS x Mang Ujo");
+    const details = encodeURIComponent("Pengingat Acara Kolaborasi UKLMTHS x Mang Ujo.\n\nLokasi Maps: " + MAP_URL);
+    const location = encodeURIComponent(MAP_URL);
+    
+    const startTime = "20261114T230000Z";
+    const endTime = "20261115T020000Z"; 
+
+    const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startTime}/${endTime}&details=${details}&location=${location}`;
+    document.getElementById('gCalLink').href = gCalUrl;
+  }
+  setupCalendarLink();
+
+  // Set Link Grup WA
+  document.getElementById('waGroupLink').href = WA_GROUP_LINK;
+
+  // Form Submit
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    isSubmitted = true; // Matikan notifikasi sebelum reload/refresh setelah pendaftaran berhasil
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'Memproses...';
+
+    const ig = document.getElementById('instagram').value.trim();
+    const wa = document.getElementById('whatsapp').value.trim();
+    const alasan = document.getElementById('alasan').value.trim();
+
+    const payload = { instagram: ig, whatsapp: wa, alasan: alasan };
+
+    // Format pesan WA Admin
+    const waMsg = encodeURIComponent(`Halo Admin, saya telah mendaftar acara Kolaborasi UKLMTHS x Mang Ujo.\n\nNama IG: ${ig}\nNo WA: ${wa}\nAlasan: ${alasan}`);
+    document.getElementById('waConfirmLink').href = `https://wa.me/${ADMIN_WA_NUMBER}?text=${waMsg}`;
+
+    // Kirim data ke Google Sheets
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(() => {
+      form.style.display = 'none';
+      quotaStatus.style.display = 'none';
+      successArea.style.display = 'block';
+    }).catch(err => {
+      console.error(err);
+      form.style.display = 'none';
+      quotaStatus.style.display = 'none';
+      successArea.style.display = 'block';
+    });
+  });
+
+  // Fungsi Bookmark Map
+  function bookmarkLocation() {
+    const modal = document.getElementById('bookmarkModal');
+    const modalText = document.getElementById('bookmarkModalText');
+
+    if (navigator.share) {
+      navigator.share({
+        title: 'Lokasi Acara UKLMTHS x Mang Ujo',
+        text: 'Simpan titik lokasi acara Kolaborasi UKLMTHS x Mang Ujo',
+        url: MAP_URL
+      }).catch(() => {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(MAP_URL).then(() => {
+        modalText.innerHTML = "<b>Tautan Lokasi Berhasil Disalin!</b><br>Tautan telah disalin ke papan klip Anda. Tempelkan ke catatan atau bookmark browser Anda.";
+        modal.style.display = 'flex';
+      }).catch(() => {
+        modalText.innerHTML = "Tekan <b>Ctrl + D</b> (Windows) atau <b>Cmd + D</b> (Mac) untuk menyimpan halaman ini ke bookmark browser Anda.";
+        modal.style.display = 'flex';
+      });
+    } else {
+      modalText.innerHTML = "Tekan <b>Ctrl + D</b> (Windows) atau <b>Cmd + D</b> (Mac) untuk menyimpan halaman ini.";
+      modal.style.display = 'flex';
+    }
+  }
+
+  function closeBookmarkModal() {
+    document.getElementById('bookmarkModal').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
