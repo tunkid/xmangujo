@@ -364,7 +364,7 @@
           <!-- Logo 1 (UKLMTHS) -->
           <img id="logoUKL" src="https://lh3.googleusercontent.com/u/0/d/1oHXJG10EyQ9IDB9xGujb0-oVqriVlAr1" alt="Logo UKLMTHS">
           <!-- Logo 2 (Partner) -->
-          <img id="logoPartner" src="https://lh3.googleusercontent.com/u/0/d/1C4g0o_O0R5lNKAwV_tH-bP_X9IgT7EH-" alt="Logo Partner">
+          <img id="logoPartner" src="https://lh3.googleusercontent.com/u/0/d/1C4g0o_O0R5lNKAwV_tH-bP_X9IgT7EH-" alt="Logo Mang Ujo">
         </div>
       </div>
 
@@ -430,8 +430,8 @@
     EVENT_START_UTC: "20261031T230000Z",
     EVENT_END_UTC: "20261101T020000Z",
     
-    // URL Link & Peta
-    MAPS_SHARE_URL: "https://maps.app.goo.gl/KTjVWwvxgxm5H1gHA",
+    // URL Link & Peta (Diperbarui dengan Link Maps Terbaru)
+    MAPS_SHARE_URL: "https://maps.app.goo.gl/TYnUtojUfn3oBhSF6",
     MAPS_EMBED_SRC: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.2721869812425!2d112.6053351!3d-7.9707255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883f3f502c3b7%3A0x64e2e2ef975b9fa7!2sWarmindo%20Mang%20Ujo!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid",
     
     // Kontak & Sosial Media
@@ -440,7 +440,7 @@
     INSTAGRAM_URL: "https://www.instagram.com/warmindo_mangujo?utm_source=ig_web_button_share_sheet&vrfl=ZDNlZDc0MzIxNw==",
     
     // Google Apps Script Web App Endpoint
-    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxn8oMFl5ftdUHej1rT26yXM0XVzLcYKWbEO3cbHz5U3X4E7dto8_lrlwEdHQKSfSRdLA/exec"
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzegRb9grhoqxJAniSbqxNSYlGppkMoB6FxVcbRfWgLjzTxTKYcWbdfQjBWnyrStPR_-A/exec"
   };
 
   /* ==========================================================================
@@ -558,7 +558,6 @@
   /* ==========================================================================
      KONFIRMASI REFRESH KETIKA BERADA DI PAGE BERIKUTNYA
      ========================================================================== */
-  // Cek saat halaman dimuat ulang (refresh)
   window.addEventListener('load', function() {
     if (sessionStorage.getItem('registeredSuccess') === 'true') {
       // Tampilkan halaman sukses dan buka dialog konfirmasi refresh
@@ -583,12 +582,11 @@
   }
 
   /* ==========================================================================
-     FUNGSI BOOKMARK MAP (REPAIRED)
+     FUNGSI BOOKMARK MAP
      ========================================================================== */
   function bookmarkLocation() {
     const modalText = document.getElementById('bookmarkModalText');
 
-    // Opsi 1: Jika browser mendukung Native Web Share API (HP Android / iOS)
     if (navigator.share) {
       navigator.share({
         title: 'Lokasi Acara ' + CONFIG.EVENT_NAME,
@@ -596,7 +594,6 @@
         url: CONFIG.MAPS_SHARE_URL
       }).catch(() => {});
     } 
-    // Opsi 2: Salin otomatis ke Clipboard & Munculkan Modal Notifikasi
     else if (navigator.clipboard) {
       navigator.clipboard.writeText(CONFIG.MAPS_SHARE_URL).then(() => {
         modalText.innerHTML = "<b>Tautan Lokasi Berhasil Disalin!</b><br>Tempelkan tautan ke catatan atau bookmark browser Anda.";
