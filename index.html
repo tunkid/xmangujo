@@ -426,13 +426,12 @@
     MAX_QUOTA: 50, // Kuota Maksimal Peserta
     
     // Waktu & Tanggal Kegiatan (1 November 2026, Jam 06:00 WIB)
-    // Format UTC untuk Google Calendar (1 Nov 2026 06:00 WIB = 31 Okt 2026 23:00 UTC)
     EVENT_START_UTC: "20261031T230000Z",
     EVENT_END_UTC: "20261101T020000Z",
     
-    // URL Link & Peta (Diperbarui dengan Link Maps Terbaru)
+    // URL Link & Peta
     MAPS_SHARE_URL: "https://maps.app.goo.gl/TYnUtojUfn3oBhSF6",
-    MAPS_EMBED_SRC: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11176.638764061638!2d112.6306794945675!3d-7.9431668813406855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883d9fee14ee5%3A0x1cea777cf711f359!2sWarmindo%20Mang%20Ujo!5e0!3m2!1sen!2sid!4v1792863132081!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin",
+    MAPS_EMBED_SRC: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11176.638764061638!2d112.6306794945675!3d-7.9431668813406855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883d9fee14ee5%3A0x1cea777cf711f359!2sWarmindo%20Mang%20Ujo!5e0!3m2!1sen!2sid!4v1792863132081!5m2!1sen!2sid",
     
     // Kontak & Sosial Media
     ADMIN_WA_NUMBER: "6285179869927",
@@ -444,7 +443,7 @@
   };
 
   /* ==========================================================================
-     INITALIZATION & DOM SETUP
+     INITIALIZATION & DOM SETUP
      ========================================================================== */
   const form = document.getElementById('regForm');
   const btnSubmit = document.getElementById('btnSubmit');
@@ -479,7 +478,7 @@
   });
 
   /* ==========================================================================
-     PENGECEKAN KUOTA AUTOMATIS
+     PENGECEKAN KUOTA OTOMATIS
      ========================================================================== */
   async function checkQuota() {
     try {
@@ -551,7 +550,7 @@
     quotaStatus.style.display = 'none';
     successArea.style.display = 'block';
     
-    // Simpan status bahwa peserta sudah berhasil mendaftar ke SessionStorage
+    // Simpan status pendaftaran berhasil di SessionStorage
     sessionStorage.setItem('registeredSuccess', 'true');
   }
 
@@ -560,7 +559,6 @@
      ========================================================================== */
   window.addEventListener('load', function() {
     if (sessionStorage.getItem('registeredSuccess') === 'true') {
-      // Tampilkan halaman sukses dan buka dialog konfirmasi refresh
       form.style.display = 'none';
       quotaStatus.style.display = 'none';
       successArea.style.display = 'block';
@@ -569,7 +567,6 @@
   });
 
   function proceedToRegistration() {
-    // Hapus status register, lalu reset kembali ke form pendaftaran
     sessionStorage.removeItem('registeredSuccess');
     closeModal('confirmRefreshModal');
     successArea.style.display = 'none';
@@ -593,8 +590,7 @@
         text: 'Simpan titik lokasi acara ' + CONFIG.EVENT_NAME,
         url: CONFIG.MAPS_SHARE_URL
       }).catch(() => {});
-    } 
-    else if (navigator.clipboard) {
+    } else if (navigator.clipboard) {
       navigator.clipboard.writeText(CONFIG.MAPS_SHARE_URL).then(() => {
         modalText.innerHTML = "<b>Tautan Lokasi Berhasil Disalin!</b><br>Tempelkan tautan ke catatan atau bookmark browser Anda.";
         openModal('bookmarkModal');
